@@ -1326,446 +1326,446 @@ def simulation(simNum):
    
 
     
-######################################################################################################
-#Below is all the work for the GUI portion of the Cube Solver
-######################################################################################################
-#These are all the globals used for the GUI
-root = None
-frame = None
-canvas = None
-ScrambleLabel = None
-SolutionLabel = None
-SolutionNumberLabel = None
-isTransparent = None
-F2LNumberLabel = None
-CrossNumberLabel = None
-OLLNumberLabel = None
-PLLNumberLabel = None
-SimulateBestLabel = None
-SimulateWorstLabel = None
+# ######################################################################################################
+# #Below is all the work for the GUI portion of the Cube Solver
+# ######################################################################################################
+# #These are all the globals used for the GUI
+# root = None
+# frame = None
+# canvas = None
+# ScrambleLabel = None
+# SolutionLabel = None
+# SolutionNumberLabel = None
+# isTransparent = None
+# F2LNumberLabel = None
+# CrossNumberLabel = None
+# OLLNumberLabel = None
+# PLLNumberLabel = None
+# SimulateBestLabel = None
+# SimulateWorstLabel = None
+#
+# #cubePoints are all of the x and y coordinates for the polygons used for the tiles
+# def cubePoints():
+#     #h and w may be changed to allow the cube to be moved around the screen
+#     h = 125
+#     w = 115
+#     #right face
+#     #layer 1
+#     r00p = [0+w, 0+h, 0+w, 50+h, 33+w, 30+h, 33+w, -20+h]
+#     r01p = [33+w, -20+h, 33+w, 30+h, 66+w, 10+h, 66+w, -40+h]
+#     r02p = [66+w, -40+h, 66+w, 10+h, 99+w, -10+h, 99+w, -60+h]
+#     #layer 2
+#     r10p = [0+w, 50+h, 0+w, 100+h, 33+w, 80+h, 33+w, 30+h]
+#     r11p = [33+w, 30+h, 33+w, 80+h, 66+w, 60+h, 66+w, 10+h]
+#     r12p = [66+w, 10+h, 66+w, 60+h, 99+w, 40+h, 99+w, -10+h]
+#     #layer 3
+#     r20p = [0+w, 100+h, 0+w, 150+h, 33+w, 130+h, 33+w, 80+h]
+#     r21p = [33+w, 80+h, 33+w, 130+h, 66+w, 110+h, 66+w, 60+h]
+#     r22p = [66+w, 60+h, 66+w, 110+h, 99+w, 90+h, 99+w, 40+h]
+#     #left face (left face will be front face, however called l face to distinguish between the left and right)
+#     #layer 1
+#     l00p = [-66+w, -40+h, -66+w, 10+h, -99+w, -10+h, -99+w, -60+h]
+#     l01p = [-33+w, -20+h, -33+w, 30+h, -66+w, 10+h, -66+w, -40+h]
+#     l02p = [0+w, 0+h, 0+w, 50+h, -33+w, 30+h, -33+w, -20+h]
+#     #layer 2
+#     l10p = [-66+w, 10+h, -66+w, 60+h, -99+w, 40+h, -99+w, -10+h]
+#     l11p = [-33+w, 30+h, -33+w, 80+h, -66+w, 60+h, -66+w, 10+h]
+#     l12p = [0+w, 50+h, 0+w, 100+h, -33+w, 80+h, -33+w, 30+h]
+#     #layer 3
+#     l20p = [-66+w, 60+h, -66+w, 110+h, -99+w, 90+h, -99+w, 40+h]
+#     l21p = [-33+w, 80+h, -33+w, 130+h, -66+w, 110+h, -66+w, 60+h]
+#     l22p = [0+w, 100+h, 0+w, 150+h, -33+w, 130+h, -33+w, 80+h]
+#     #up face
+#     #layer 1
+#     u00p = [0+w, -75+h, -33+w, -94+h, 0+w, -111+h, 33+w, -94+h]
+#     u01p = [36+w, -57+h, 0+w, -75+h, 33+w, -94+h, 69+w, -76+h]
+#     u02p = [66+w, -40+h, 36+w, -57+h, 69+w, -76+h, 99+w, -60+h]
+#     #layer 2
+#     u10p = [-33+w, -57+h, -66+w, -77+h, -33+w, -94+h, 0+w, -75+h]
+#     u11p = [0+w, -38+h, -33+w, -57+h, 0+w, -75+h, 36+w, -57+h]
+#     u12p = [33+w, -20+h, 0+w, -38+h, 36+w, -57+h, 66+w, -40+h]
+#     #layer 3
+#     u20p = [-66+w, -40+h, -99+w, -60+h, -66+w, -77+h, -33+w, -57+h]
+#     u21p = [-33+w, -20+h, -66+w, -40+h, -33+w, -57+h, 0+w, -38+h]
+#     u22p = [0+w, 0+h, -33+w, -20+h, 0+w, -38+h, 33+w, -20+h]
+#
+#     dh = h + 200
+#     dw = w
+#     #d face
+#     #layer 1
+#     d00p = [0+dw, -75+dh, -33+dw, -94+dh, 0+dw, -111+dh, 33+dw, -94+dh]
+#     d01p = [36+dw, -57+dh, 0+dw, -75+dh, 33+dw, -94+dh, 69+dw, -76+dh]
+#     d02p = [66+dw, -40+dh, 36+dw, -57+dh, 69+dw, -76+dh, 99+dw, -60+dh]
+#     #layer 2
+#     d10p = [-33+dw, -57+dh, -66+dw, -77+dh, -33+dw, -94+dh, 0+dw, -75+dh]
+#     d11p = [0+dw, -38+dh, -33+dw, -57+dh, 0+dw, -75+dh, 36+dw, -57+dh]
+#     d12p = [33+dw, -20+dh, 0+dw, -38+dh, 36+dw, -57+dh, 66+dw, -40+dh]
+#     #layer 3
+#     d20p = [-66+dw, -40+dh, -99+dw, -60+dh, -66+dw, -77+dh, -33+dw, -57+dh]
+#     d21p = [-33+dw, -20+dh, -66+dw, -40+dh, -33+dw, -57+dh, 0+dw, -38+dh]
+#     d22p = [0+dw, 0+dh, -33+dw, -20+dh, 0+dw, -38+dh, 33+dw, -20+dh]
+#
+#     return [    [[u00p, u01p, u02p],
+#                  [u10p, u11p, u12p],
+#                  [u20p, u21p, u22p]], #Upside
+#
+#                 [[l00p, l01p, l02p],
+#                  [l10p, l11p, l12p],
+#                  [l20p, l21p, l22p]], #front face (used l to denote the left showing face)
+#
+#                 [[r02p, r12p, r22p],
+#                  [r01p, r11p, r21p],
+#                  [r00p, r10p, r20p]], # right face (different than other faces because it is formatted differently)
+#
+#                 [[d20p, d21p, d22p],
+#                  [d10p, d11p, d12p],
+#                  [d00p, d01p, d02p]]] #downside
+#
+# def clickCanvas(canvas):
+#     global isTransparent
+#     isTransparent = not isTransparent
+#     canvas.delete(ALL)
+#     drawCube()
+#
+#
+# #DrawCanvas will take the root and draw a new canvas, also returning it.
+# def drawCanvas(root):
+#     canvas=tk.Canvas(root, width=225, height=330, background='white')
+#     canvas.grid(row=0,column=0)
+#     canvas.bind("<Button-1>", lambda e: clickCanvas(canvas))
+#     return canvas
+#
+# #Used to get the word for each color, used in drawCube(canvas()
+# def getColor(element):
+#     if element == 'B':
+#         return "#06F" #Nice shade of blue
+#     elif element == 'W':
+#         return "white"
+#     elif element == 'G':
+#         return "green"
+#     elif element == 'Y':
+#         return "yellow"
+#     elif element == 'O':
+#         return "orange"
+#     elif element == 'R':
+#         return "#D11"
 
-#cubePoints are all of the x and y coordinates for the polygons used for the tiles
-def cubePoints():
-    #h and w may be changed to allow the cube to be moved around the screen
-    h = 125
-    w = 115
-    #right face
-    #layer 1
-    r00p = [0+w, 0+h, 0+w, 50+h, 33+w, 30+h, 33+w, -20+h]
-    r01p = [33+w, -20+h, 33+w, 30+h, 66+w, 10+h, 66+w, -40+h]
-    r02p = [66+w, -40+h, 66+w, 10+h, 99+w, -10+h, 99+w, -60+h]
-    #layer 2
-    r10p = [0+w, 50+h, 0+w, 100+h, 33+w, 80+h, 33+w, 30+h]
-    r11p = [33+w, 30+h, 33+w, 80+h, 66+w, 60+h, 66+w, 10+h]
-    r12p = [66+w, 10+h, 66+w, 60+h, 99+w, 40+h, 99+w, -10+h]
-    #layer 3
-    r20p = [0+w, 100+h, 0+w, 150+h, 33+w, 130+h, 33+w, 80+h]
-    r21p = [33+w, 80+h, 33+w, 130+h, 66+w, 110+h, 66+w, 60+h]
-    r22p = [66+w, 60+h, 66+w, 110+h, 99+w, 90+h, 99+w, 40+h]
-    #left face (left face will be front face, however called l face to distinguish between the left and right)
-    #layer 1
-    l00p = [-66+w, -40+h, -66+w, 10+h, -99+w, -10+h, -99+w, -60+h]
-    l01p = [-33+w, -20+h, -33+w, 30+h, -66+w, 10+h, -66+w, -40+h]
-    l02p = [0+w, 0+h, 0+w, 50+h, -33+w, 30+h, -33+w, -20+h]
-    #layer 2
-    l10p = [-66+w, 10+h, -66+w, 60+h, -99+w, 40+h, -99+w, -10+h]
-    l11p = [-33+w, 30+h, -33+w, 80+h, -66+w, 60+h, -66+w, 10+h]
-    l12p = [0+w, 50+h, 0+w, 100+h, -33+w, 80+h, -33+w, 30+h]
-    #layer 3
-    l20p = [-66+w, 60+h, -66+w, 110+h, -99+w, 90+h, -99+w, 40+h]
-    l21p = [-33+w, 80+h, -33+w, 130+h, -66+w, 110+h, -66+w, 60+h]
-    l22p = [0+w, 100+h, 0+w, 150+h, -33+w, 130+h, -33+w, 80+h]
-    #up face
-    #layer 1
-    u00p = [0+w, -75+h, -33+w, -94+h, 0+w, -111+h, 33+w, -94+h]
-    u01p = [36+w, -57+h, 0+w, -75+h, 33+w, -94+h, 69+w, -76+h]
-    u02p = [66+w, -40+h, 36+w, -57+h, 69+w, -76+h, 99+w, -60+h]
-    #layer 2
-    u10p = [-33+w, -57+h, -66+w, -77+h, -33+w, -94+h, 0+w, -75+h]
-    u11p = [0+w, -38+h, -33+w, -57+h, 0+w, -75+h, 36+w, -57+h]
-    u12p = [33+w, -20+h, 0+w, -38+h, 36+w, -57+h, 66+w, -40+h]
-    #layer 3
-    u20p = [-66+w, -40+h, -99+w, -60+h, -66+w, -77+h, -33+w, -57+h]
-    u21p = [-33+w, -20+h, -66+w, -40+h, -33+w, -57+h, 0+w, -38+h]
-    u22p = [0+w, 0+h, -33+w, -20+h, 0+w, -38+h, 33+w, -20+h]
-
-    dh = h + 200
-    dw = w
-    #d face
-    #layer 1
-    d00p = [0+dw, -75+dh, -33+dw, -94+dh, 0+dw, -111+dh, 33+dw, -94+dh]
-    d01p = [36+dw, -57+dh, 0+dw, -75+dh, 33+dw, -94+dh, 69+dw, -76+dh]
-    d02p = [66+dw, -40+dh, 36+dw, -57+dh, 69+dw, -76+dh, 99+dw, -60+dh]
-    #layer 2
-    d10p = [-33+dw, -57+dh, -66+dw, -77+dh, -33+dw, -94+dh, 0+dw, -75+dh]
-    d11p = [0+dw, -38+dh, -33+dw, -57+dh, 0+dw, -75+dh, 36+dw, -57+dh]
-    d12p = [33+dw, -20+dh, 0+dw, -38+dh, 36+dw, -57+dh, 66+dw, -40+dh]
-    #layer 3
-    d20p = [-66+dw, -40+dh, -99+dw, -60+dh, -66+dw, -77+dh, -33+dw, -57+dh]
-    d21p = [-33+dw, -20+dh, -66+dw, -40+dh, -33+dw, -57+dh, 0+dw, -38+dh]
-    d22p = [0+dw, 0+dh, -33+dw, -20+dh, 0+dw, -38+dh, 33+dw, -20+dh]
-    
-    return [    [[u00p, u01p, u02p],
-                 [u10p, u11p, u12p],
-                 [u20p, u21p, u22p]], #Upside
-
-                [[l00p, l01p, l02p],
-                 [l10p, l11p, l12p],
-                 [l20p, l21p, l22p]], #front face (used l to denote the left showing face)
-
-                [[r02p, r12p, r22p],
-                 [r01p, r11p, r21p],
-                 [r00p, r10p, r20p]], # right face (different than other faces because it is formatted differently)
-
-                [[d20p, d21p, d22p],
-                 [d10p, d11p, d12p],
-                 [d00p, d01p, d02p]]] #downside
-
-def clickCanvas(canvas):
-    global isTransparent
-    isTransparent = not isTransparent
-    canvas.delete(ALL)
-    drawCube()
-
-
-#DrawCanvas will take the root and draw a new canvas, also returning it.
-def drawCanvas(root):
-    canvas=tk.Canvas(root, width=225, height=330, background='white')
-    canvas.grid(row=0,column=0)
-    canvas.bind("<Button-1>", lambda e: clickCanvas(canvas))
-    return canvas
-
-#Used to get the word for each color, used in drawCube(canvas()
-def getColor(element):
-    if element == 'B':
-        return "#06F" #Nice shade of blue
-    elif element == 'W':
-        return "white"
-    elif element == 'G':
-        return "green"
-    elif element == 'Y':
-        return "yellow"
-    elif element == 'O':
-        return "orange"
-    elif element == 'R':
-        return "#D11"
-
-#drawCube() will take the already created canvas and draw the cube with polygons whose points are defined in cubePoints()
-def drawCube():
-    global isTransparent, canvas
-    pts = cubePoints()
-    for j in range(3):
-        for k in range(3):
-            canvas.create_polygon(pts[3][j][k], fill=getColor(a[4][j][k]), outline="#000", width=2)
-    for i in range(3):
-        for j in range(3):
-            for k in range(3):
-                if isTransparent:
-                    frontTiles = (i == 1) and ((j == 1 and k == 2) or (j == 2 and k == 2) or (j == 2 and k == 1))
-                    rightTiles = (i == 2) and ((j == 1 and k == 2) or (j == 2 and k == 2) or (j == 2 and k == 1))
-                    if  frontTiles or rightTiles:
-                        canvas.create_polygon(pts[i][j][k], fill="", outline="#000", width=2)
-                    else:
-                        canvas.create_polygon(pts[i][j][k], fill=getColor(a[i][j][k]), outline="#000", width=2)
-                else:
-                    canvas.create_polygon(pts[i][j][k], fill=getColor(a[i][j][k]), outline="#000", width=2)
-
-# Used to create a new instance of a cube to be solved, changes scramble and solution labels as well
-def GUInewCube():
-    global canvas, ScrambleLabel, SolutionLabel, SolutionNumberLabel, a, step_moves_list
-    global PLLNumberLabel,F2LNumberLabel, CrossNumberLabel,OLLNumberLabel, f2l_list, moves_list
-    step_moves_list = [0,0,0,0]
-    a = make_cube()
-    f2l_list = []
-    moves_list = []
-    ScrambleLabel.configure(text="Scramble will be displayed here")
-    SolutionLabel.configure(text="Solution will be displayed here")
-    SolutionNumberLabel.configure(text=0)
-    CrossNumberLabel.configure(text=step_moves_list[0])
-    F2LNumberLabel.configure(text=step_moves_list[1])
-    OLLNumberLabel.configure(text=step_moves_list[2])
-    PLLNumberLabel.configure(text=step_moves_list[3])
-    canvas.delete(ALL)
-    drawCube()
-
-#GUImakeMove is used to make moves based on what is in the EntryBox. After clicking Draw, it will redraw the canvas with the updated cube
-def GUImakeMove(move):
-    global canvas
-    if move.get() == "":
-        return
-    m(move.get())
-    canvas.delete(ALL)
-    drawCube()
-
-#GUIScramble will do a scramble of 25 on the cube, then update the canvas with the new cube
-def GUIScramble():
-    global ScrambleLabel, canvas
-    scramble(25)
-    ScrambleLabel.configure(text=get_scramble())
-    canvas.delete(ALL)
-    drawCube()
-
-#Used to allow user to enter in their own scramble in the Entry, will display scramble in scramble label as well
-def GUIcustomScramble(scram):
-    global ScrambleLabel, canvas
-    if scram.get() == "":
-        ScrambleLabel.configure(text="Scramble will be displayed here")
-        return
-    scramble(scram.get())
-    ScrambleLabel.configure(text=get_scramble())
-    canvas.delete(ALL)
-    drawCube()
-
-#GUISolve will wolve the cube using the solve function, then update the canvas with the new, solved, cube
-def GUISolve():
-    global canvas, SolutionLabel, SolutionNumberLabel, step_moves_list
-    global PLLNumberLabel,F2LNumberLabel, CrossNumberLabel,OLLNumberLabel
-    solve()
-    SolutionLabel.configure(text=get_moves())
-    SolutionNumberLabel.configure(text=solution_length)
-    CrossNumberLabel.configure(text=step_moves_list[0])
-    F2LNumberLabel.configure(text=step_moves_list[1])
-    OLLNumberLabel.configure(text=step_moves_list[2])
-    PLLNumberLabel.configure(text=step_moves_list[3])
-    canvas.delete(ALL)
-    drawCube()
-
-# This will allow the user to go through the solve one step at a time, the parameter step should be
-#either cross, f2l, OLL, or PLL. Depending on it, it will do a different step
-def GUIsetSolve(step):
-    global SolutionLabel, SolutionNumberLabel, canvas, step_moves_list
-    global PLLNumberLabel,F2LNumberLabel, CrossNumberLabel,OLLNumberLabel
-    if step == "cross":
-        cross()
-        simplify_moves()
-        step_moves_list[0] = solution_length
-    elif step == "f2l" or step == "F2L":
-        f2l()
-        simplify_moves()
-        step_moves_list[1] = solution_length - step_moves_list[0]
-    elif step == "OLL":
-        topCross()
-        getfish
-        bOLL()
-        simplify_moves()
-        step_moves_list[2] = solution_length - step_moves_list[1] - step_moves_list[0]
-    elif step == "PLL":
-        bPLL()
-        simplify_moves()
-        step_moves_list[3] = solution_length - step_moves_list[2] - step_moves_list[1] - step_moves_list[0]
-        assert(isSolved())
-        
-    SolutionLabel.configure(text=get_moves())
-    SolutionNumberLabel.configure(text=solution_length)
-    CrossNumberLabel.configure(text=step_moves_list[0])
-    F2LNumberLabel.configure(text=step_moves_list[1])
-    OLLNumberLabel.configure(text=step_moves_list[2])
-    PLLNumberLabel.configure(text=step_moves_list[3])
-    canvas.delete(ALL)
-    drawCube()
-
-#This is used to copy the given string to the users clipboard
-def GUItoClipboard(word):
-    r = Tk()
-    r.withdraw()
-    r.clipboard_clear()
-    r.clipboard_append(word)
-    r.destroy()
-'''
-This was the attempt at using a timer to automate a solve, to use, be sure to reactivate the button and import time
-#This is used to the a slow, but automatic solve. It uses the timer features to do a couple moves per second or so
-def GUIautomateSolve():
-    global canvas, a
-    b = copy.deepcopy(a)
-    solve()
-    simplify_moves()
-    a = b
-    for i in moves_list:
-        move(i)
-        canvas.after(200, drawCube())
-'''
-
-#This is used to export the solve and solution to alg.cubing.net. It will check if it can open with
-#Google Chrome, if it can't, it will try firefox, otherwise it will use the default web browser on the system        
-def GUIexportSolve():
-    sCopy = copy.deepcopy(get_scramble())
-    mCopy = copy.deepcopy(get_moves())
-
-    sCopy = str.replace(sCopy, "'", "-")
-    sCopy = str.replace(sCopy, " ", "_")
-    mCopy = str.replace(mCopy, "'", "-")
-    mCopy = str.replace(mCopy, " ", "_")
-    
-    url = "alg.cubing.net/?setup=" + sCopy + "&alg=" + mCopy
-    chrome_path = "C:/Program Files (x86)/Google/Chrome/Application/chrome.exe"
-    firefox_path = "C:/Program Files/Mozilla Firefox/Firefox.exe"
-    if os.path.exists(chrome_path):
-        webbrowser.get(chrome_path + " %s").open(url)
-    elif os.path.exists(firefox_path):
-        webbrowser.get(firefox_path + " %s").open(url)
-    else:
-        webbrowser.open_new(url)
-
-#This is used for the rotation of the cube with buttons. It takes in either a Yi or Y move to be executed
-def GUIyRotation(given):
-    global canvas
-    if given == "Y" or given == "y":
-        move('y')
-    elif given == "Yi" or given == "Y'" or given == "yi" or given == "y'":
-        move('yi')
-    canvas.delete(ALL)
-    drawCube()
-
-#This will create a new Information GUI, after it is closed, the main GUI() is ran
-def InfoGUI():
-    rt = tk.Tk()
-    rt.geometry("550x135+50+50") #size of the starting frame
-    rt.wm_title("Cube Solver Info")
-    rt.resizable(False, True) #Only allows the height to be resized, not the width
-    InfoGUIy(rt)
-    rt.mainloop()
-    GUI()
-
-#This will be called within InfoGUI(), it will create a nice GUI with instructions
-def InfoGUIy(rt):
-    frame = Frame(rt)
-    frame.grid(row=0,column=0)
-    wel = "\t\t\tWelcome to the cube solver, here are some features:"
-    instruct1 = "* Enter in your own moves, then click 'execute' to execute them"
-    instruct2 = "* Click scramble to generate a scramble, or make your own and select 'custom scramble'"
-    instruct3 = "* Click the two solve buttons to solve, or solve it step by step with the blue buttons"
-    instruct4 = "* You can copy the scramble or solution to the clipboard, or export to alg.cubing.net for viewing"
-    instruct5 = "* Run some simulations by entering the number of scrambles to simulate"
-    InfoLabel = Label(frame, text=wel +"\n"+instruct1+"\n"+instruct2+"\n"+instruct3+"\n"+instruct4+"\n"+instruct5, justify=LEFT)
-    InfoLabel.grid(row=0, column=0)
-    InfoQuitButton = Button(frame,text="Start Cubing", fg="red",command=lambda: rt.destroy())
-    InfoQuitButton.grid(row=1,column=0)
-
-#This is used to run simulations, uses the simulation function. this is the GUI portion of the simulations
-def GUISimulation(simNum):
-    global SimulateBestLabel, SimulateWorstLabel
-    simResults = simulation(simNum)
-    s = StringVar(value=simResults[2])
-    GUIcustomScramble(s)
-    GUISolve()
-    SimulateBestLabel.configure(text = str(simResults[1] + 1) + " out of " + str(simNum.get()) + " with " + str(solution_length) + " moves")
-    SimulateWorstLabel.configure(text = str(simResults[4] +1) + " out of " + str(simNum.get()) + " with " + str(simResults[3]) + " moves")
-
-#GUI is the main GUI that will be created, it calls GUIy which actually does all the work for the GUI
-def GUI():
-    global root
-    root = tk.Tk()
-    root.geometry("550x550+50+50") #size of the starting frame
-    root.wm_title("Cube Solver")
-    root.resizable(True, True) #Only allows the height to be resized, not the width
-    GUIy()
-    root.mainloop()
- 
-#GUIy, after the GUI itself is created with GUI(), this will create all the buttons, labels, etc.. and add them into a frame. This is the behind the
-#scenes work for the GUI itself.
-def GUIy():
-    global root, canvas, ScrambleLabel, SolutionLabel, SolutionNumberLabel, frame,isTransparent
-    global PLLNumberLabel,F2LNumberLabel, CrossNumberLabel,OLLNumberLabel, SimulateBestLabel, SimulateWorstLabel
-    
-    isTransparent = False
-    canvas = drawCanvas(root)
-    drawCube()
-
-    #locals
-    move = StringVar(value="")
-    scram = StringVar(value="Enter Scramble Here")
-    simNum = IntVar()#Simulation Number
-    
-    #Frame for controls
-    frame = Frame(root)
-    frame.grid(row=0,column=1, sticky="n")
-
-    #Frame for cube rotations
-    Rframe = Frame(root)
-    Rframe.grid(row=0, column=0, sticky = "n")
-
-    #row 1 - welcome label and new cube button
-    Welcome = Label(frame, text = "Welcome to the Cube Solver").grid(row=1,column=0)
-    NewCubeButton = Button(frame,text="New Cube", command = lambda: GUInewCube())
-    NewCubeButton.grid(row=1, column=1)
-    #row 2 - label to tell you to enter a move for execution
-    EnterMove = Label(frame, text ="Enter move(s):").grid(row=2,column=0)
-    #row 3 - Has entry for custom moves as well as button to execute them
-    MoveEntry = Entry(frame, textvariable=move).grid(row = 3, column=0)
-    DrawCubeButton=Button(frame,text="Execute", command = lambda: GUImakeMove(move)).grid(row = 3,column = 1, sticky="w")
-    #row 4 - The label that will print out the current scramble after generation
-    ScrambleLabel = Label(frame, text="Scramble will be displayed here",wraplength=180, justify=CENTER, height = 2)
-    ScrambleLabel.grid(row=4,column=0, columnspan=2)
-    #row 5 - The scramble button to generate new scramble and copy scramble to clipboard
-    ScrambleButton = Button(frame, text="Scramble",bg="lightgreen", command = lambda: GUIScramble()).grid(row = 5, column = 0)
-    CopyScrambleButton = Button(frame, text="Copy Scramble",bg="#EF9", command = lambda: GUItoClipboard(get_scramble())).grid(row = 5, column = 1)
-    #row 6 - entry for custom scramble and button to apply custom scramble to cube
-    CustomScramEntry = Entry(frame, textvariable=scram)
-    CustomScramEntry.grid(row=6,column=0,sticky="w")
-    CustomScramButton = Button(frame,text="Custom Scramble",bg="lightgreen", command = lambda: GUIcustomScramble(scram))
-    CustomScramButton.grid(row=6,column=1)
-    #row 7 - Slow solve (using timer to do it slowly), instant solve(quick and instant solution), copy solution to clipboard buttons
-    #SolveTimerButton = Button(frame, text="Slow Solve", bg="#D53", command = lambda: GUIautomateSolve()).grid(row=7, column=0, sticky="w", pady=5)
-    SolveButton = Button(frame, text="Solve Cube",bg="#D53",command = lambda: GUISolve()).grid(row = 7, column = 0) #sticky="e" if using timer button as well
-    CopyScrambleButton = Button(frame, text="Copy Solution",bg="#EF9", command = lambda: GUItoClipboard(get_moves())).grid(row = 7, column = 1)
-    #row 8 -Solve buttons to do steps independantly
-    CrossButton = Button(frame, text="Cross",bg="lightblue", command = lambda: GUIsetSolve("cross"))
-    CrossButton.grid(row=8, column=0)
-    F2LButton = Button(frame, text="F2l",bg="lightblue", command = lambda: GUIsetSolve("F2L"))
-    F2LButton.grid(row=8, column=0, sticky="e", padx= 15)
-    OLLButton = Button(frame, text="OLL",bg="lightblue", command = lambda: GUIsetSolve("OLL"))
-    OLLButton.grid(row=8, column=1, sticky = "w")
-    PLLButton = Button(frame, text="PLL",bg="lightblue", command = lambda: GUIsetSolve("PLL"))
-    PLLButton.grid(row=8, column=1, sticky = "e", padx=30)
-    #row 9 - the label that contains the solution that will be generated
-    SolutionLabel = Label(frame, text="Solution will be displayed here", wraplength = 250, justify=CENTER, height = 8)
-    SolutionLabel.grid(row=9, column=0, columnspan=2)
-    #row 10 - Labels for number of moves needed to solve 
-    SolutionNumberInfoLabel = Label(frame, text="Total number of moves used:")
-    SolutionNumberInfoLabel.grid(row=10, column=0,sticky="e")
-    SolutionNumberLabel = Label(frame, text="0")
-    SolutionNumberLabel.grid(row=10, column=1,sticky="w")
-    #row 11, 12, 13, 14 - Labels for number of moves for the different steps
-    CrossInfoLabel = Label(frame, text="Moves needed for Cross:")
-    CrossInfoLabel.grid(row=11,column=0,sticky="e")
-    CrossNumberLabel = Label(frame,text="0")
-    CrossNumberLabel.grid(row=11, column=1,sticky="w")
-    F2LInfoLabel = Label(frame, text= "Moves needed for F2L:")
-    F2LInfoLabel.grid(row = 12, column=0,sticky="e")
-    F2LNumberLabel = Label(frame,text="0")
-    F2LNumberLabel.grid(row=12, column=1,sticky="w")
-    OLLInfoLabel = Label(frame,text="Moves needed for OLL:")
-    OLLInfoLabel.grid(row=13, column=0,sticky="e")
-    OLLNumberLabel = Label(frame,text="0")
-    OLLNumberLabel.grid(row=13, column=1,sticky="w")
-    PLLInfoLabel = Label(frame,text="Moves needed for PLL:")
-    PLLInfoLabel.grid(row=14, column=0,sticky="e")
-    PLLNumberLabel = Label(frame, text="0")
-    PLLNumberLabel.grid(row=14, column=1,sticky="w")
-    #row 15 - Exporting to alg.cubing.net
-    ExportSolveButton = Button(frame, text="Export to alg.cubing.net", command = lambda: GUIexportSolve())
-    ExportSolveButton.grid(row=15,column=0)
-    #row 16 - Simulations for Best solve
-    SimulateEntry = Entry(frame, textvariable = simNum)
-    SimulateEntry.grid(row=16, column=0)
-    SimulateButton = Button(frame, text="Start Simulations", command = lambda: GUISimulation(simNum))
-    SimulateButton.grid(row=16,column=1)
-    #row 17 - Which best was found
-    SimulateBestInfo = Label(frame, text="Best Simulation: ")
-    SimulateBestInfo.grid(row=17,column=0)
-    SimulateBestLabel = Label(frame,text="")
-    SimulateBestLabel.grid(row=17,column=1,sticky="w")
-    #row 18 Which worst was found
-    SimulateWorstInfo = Label(frame, text="Worst Simulation: ")
-    SimulateWorstInfo.grid(row=18, column=0)
-    SimulateWorstLabel = Label(frame,text="")
-    SimulateWorstLabel.grid(row=18, column=1)
-    
-    #In Rframe, buttons for rotation
-    RotationLabel = Label(Rframe,text="Use the buttons below to rotate the cube").grid(row=0,column=0, columnspan=2)
-    YrotationButton = Button(Rframe, text="<---- Y", command = lambda: GUIyRotation("Y"))
-    YrotationButton.grid(row=1, column=0)
-    YirotationButton = Button(Rframe, text="Y' ---->", command = lambda: GUIyRotation("Yi"))
-    YirotationButton.grid(row=1, column=1)
-      
-InfoGUI()
+# #drawCube() will take the already created canvas and draw the cube with polygons whose points are defined in cubePoints()
+# def drawCube():
+#     global isTransparent, canvas
+#     pts = cubePoints()
+#     for j in range(3):
+#         for k in range(3):
+#             canvas.create_polygon(pts[3][j][k], fill=getColor(a[4][j][k]), outline="#000", width=2)
+#     for i in range(3):
+#         for j in range(3):
+#             for k in range(3):
+#                 if isTransparent:
+#                     frontTiles = (i == 1) and ((j == 1 and k == 2) or (j == 2 and k == 2) or (j == 2 and k == 1))
+#                     rightTiles = (i == 2) and ((j == 1 and k == 2) or (j == 2 and k == 2) or (j == 2 and k == 1))
+#                     if  frontTiles or rightTiles:
+#                         canvas.create_polygon(pts[i][j][k], fill="", outline="#000", width=2)
+#                     else:
+#                         canvas.create_polygon(pts[i][j][k], fill=getColor(a[i][j][k]), outline="#000", width=2)
+#                 else:
+#                     canvas.create_polygon(pts[i][j][k], fill=getColor(a[i][j][k]), outline="#000", width=2)
+#
+# # Used to create a new instance of a cube to be solved, changes scramble and solution labels as well
+# def GUInewCube():
+#     global canvas, ScrambleLabel, SolutionLabel, SolutionNumberLabel, a, step_moves_list
+#     global PLLNumberLabel,F2LNumberLabel, CrossNumberLabel,OLLNumberLabel, f2l_list, moves_list
+#     step_moves_list = [0,0,0,0]
+#     a = make_cube()
+#     f2l_list = []
+#     moves_list = []
+#     ScrambleLabel.configure(text="Scramble will be displayed here")
+#     SolutionLabel.configure(text="Solution will be displayed here")
+#     SolutionNumberLabel.configure(text=0)
+#     CrossNumberLabel.configure(text=step_moves_list[0])
+#     F2LNumberLabel.configure(text=step_moves_list[1])
+#     OLLNumberLabel.configure(text=step_moves_list[2])
+#     PLLNumberLabel.configure(text=step_moves_list[3])
+#     canvas.delete(ALL)
+#     drawCube()
+#
+# #GUImakeMove is used to make moves based on what is in the EntryBox. After clicking Draw, it will redraw the canvas with the updated cube
+# def GUImakeMove(move):
+#     global canvas
+#     if move.get() == "":
+#         return
+#     m(move.get())
+#     canvas.delete(ALL)
+#     drawCube()
+#
+# #GUIScramble will do a scramble of 25 on the cube, then update the canvas with the new cube
+# def GUIScramble():
+#     global ScrambleLabel, canvas
+#     scramble(25)
+#     ScrambleLabel.configure(text=get_scramble())
+#     canvas.delete(ALL)
+#     drawCube()
+#
+# #Used to allow user to enter in their own scramble in the Entry, will display scramble in scramble label as well
+# def GUIcustomScramble(scram):
+#     global ScrambleLabel, canvas
+#     if scram.get() == "":
+#         ScrambleLabel.configure(text="Scramble will be displayed here")
+#         return
+#     scramble(scram.get())
+#     ScrambleLabel.configure(text=get_scramble())
+#     canvas.delete(ALL)
+#     drawCube()
+#
+# #GUISolve will wolve the cube using the solve function, then update the canvas with the new, solved, cube
+# def GUISolve():
+#     global canvas, SolutionLabel, SolutionNumberLabel, step_moves_list
+#     global PLLNumberLabel,F2LNumberLabel, CrossNumberLabel,OLLNumberLabel
+#     solve()
+#     SolutionLabel.configure(text=get_moves())
+#     SolutionNumberLabel.configure(text=solution_length)
+#     CrossNumberLabel.configure(text=step_moves_list[0])
+#     F2LNumberLabel.configure(text=step_moves_list[1])
+#     OLLNumberLabel.configure(text=step_moves_list[2])
+#     PLLNumberLabel.configure(text=step_moves_list[3])
+#     canvas.delete(ALL)
+#     drawCube()
+#
+# # This will allow the user to go through the solve one step at a time, the parameter step should be
+# #either cross, f2l, OLL, or PLL. Depending on it, it will do a different step
+# def GUIsetSolve(step):
+#     global SolutionLabel, SolutionNumberLabel, canvas, step_moves_list
+#     global PLLNumberLabel,F2LNumberLabel, CrossNumberLabel,OLLNumberLabel
+#     if step == "cross":
+#         cross()
+#         simplify_moves()
+#         step_moves_list[0] = solution_length
+#     elif step == "f2l" or step == "F2L":
+#         f2l()
+#         simplify_moves()
+#         step_moves_list[1] = solution_length - step_moves_list[0]
+#     elif step == "OLL":
+#         topCross()
+#         getfish
+#         bOLL()
+#         simplify_moves()
+#         step_moves_list[2] = solution_length - step_moves_list[1] - step_moves_list[0]
+#     elif step == "PLL":
+#         bPLL()
+#         simplify_moves()
+#         step_moves_list[3] = solution_length - step_moves_list[2] - step_moves_list[1] - step_moves_list[0]
+#         assert(isSolved())
+#
+#     SolutionLabel.configure(text=get_moves())
+#     SolutionNumberLabel.configure(text=solution_length)
+#     CrossNumberLabel.configure(text=step_moves_list[0])
+#     F2LNumberLabel.configure(text=step_moves_list[1])
+#     OLLNumberLabel.configure(text=step_moves_list[2])
+#     PLLNumberLabel.configure(text=step_moves_list[3])
+#     canvas.delete(ALL)
+#     drawCube()
+#
+# #This is used to copy the given string to the users clipboard
+# def GUItoClipboard(word):
+#     r = Tk()
+#     r.withdraw()
+#     r.clipboard_clear()
+#     r.clipboard_append(word)
+#     r.destroy()
+# '''
+# This was the attempt at using a timer to automate a solve, to use, be sure to reactivate the button and import time
+# #This is used to the a slow, but automatic solve. It uses the timer features to do a couple moves per second or so
+# def GUIautomateSolve():
+#     global canvas, a
+#     b = copy.deepcopy(a)
+#     solve()
+#     simplify_moves()
+#     a = b
+#     for i in moves_list:
+#         move(i)
+#         canvas.after(200, drawCube())
+# '''
+#
+# #This is used to export the solve and solution to alg.cubing.net. It will check if it can open with
+# #Google Chrome, if it can't, it will try firefox, otherwise it will use the default web browser on the system
+# def GUIexportSolve():
+#     sCopy = copy.deepcopy(get_scramble())
+#     mCopy = copy.deepcopy(get_moves())
+#
+#     sCopy = str.replace(sCopy, "'", "-")
+#     sCopy = str.replace(sCopy, " ", "_")
+#     mCopy = str.replace(mCopy, "'", "-")
+#     mCopy = str.replace(mCopy, " ", "_")
+#
+#     url = "alg.cubing.net/?setup=" + sCopy + "&alg=" + mCopy
+#     chrome_path = "C:/Program Files (x86)/Google/Chrome/Application/chrome.exe"
+#     firefox_path = "C:/Program Files/Mozilla Firefox/Firefox.exe"
+#     if os.path.exists(chrome_path):
+#         webbrowser.get(chrome_path + " %s").open(url)
+#     elif os.path.exists(firefox_path):
+#         webbrowser.get(firefox_path + " %s").open(url)
+#     else:
+#         webbrowser.open_new(url)
+#
+# #This is used for the rotation of the cube with buttons. It takes in either a Yi or Y move to be executed
+# def GUIyRotation(given):
+#     global canvas
+#     if given == "Y" or given == "y":
+#         move('y')
+#     elif given == "Yi" or given == "Y'" or given == "yi" or given == "y'":
+#         move('yi')
+#     canvas.delete(ALL)
+#     drawCube()
+#
+# #This will create a new Information GUI, after it is closed, the main GUI() is ran
+# def InfoGUI():
+#     rt = tk.Tk()
+#     rt.geometry("550x135+50+50") #size of the starting frame
+#     rt.wm_title("Cube Solver Info")
+#     rt.resizable(False, True) #Only allows the height to be resized, not the width
+#     InfoGUIy(rt)
+#     rt.mainloop()
+#     GUI()
+#
+# #This will be called within InfoGUI(), it will create a nice GUI with instructions
+# def InfoGUIy(rt):
+#     frame = Frame(rt)
+#     frame.grid(row=0,column=0)
+#     wel = "\t\t\tWelcome to the cube solver, here are some features:"
+#     instruct1 = "* Enter in your own moves, then click 'execute' to execute them"
+#     instruct2 = "* Click scramble to generate a scramble, or make your own and select 'custom scramble'"
+#     instruct3 = "* Click the two solve buttons to solve, or solve it step by step with the blue buttons"
+#     instruct4 = "* You can copy the scramble or solution to the clipboard, or export to alg.cubing.net for viewing"
+#     instruct5 = "* Run some simulations by entering the number of scrambles to simulate"
+#     InfoLabel = Label(frame, text=wel +"\n"+instruct1+"\n"+instruct2+"\n"+instruct3+"\n"+instruct4+"\n"+instruct5, justify=LEFT)
+#     InfoLabel.grid(row=0, column=0)
+#     InfoQuitButton = Button(frame,text="Start Cubing", fg="red",command=lambda: rt.destroy())
+#     InfoQuitButton.grid(row=1,column=0)
+#
+# #This is used to run simulations, uses the simulation function. this is the GUI portion of the simulations
+# def GUISimulation(simNum):
+#     global SimulateBestLabel, SimulateWorstLabel
+#     simResults = simulation(simNum)
+#     s = StringVar(value=simResults[2])
+#     GUIcustomScramble(s)
+#     GUISolve()
+#     SimulateBestLabel.configure(text = str(simResults[1] + 1) + " out of " + str(simNum.get()) + " with " + str(solution_length) + " moves")
+#     SimulateWorstLabel.configure(text = str(simResults[4] +1) + " out of " + str(simNum.get()) + " with " + str(simResults[3]) + " moves")
+#
+# #GUI is the main GUI that will be created, it calls GUIy which actually does all the work for the GUI
+# def GUI():
+#     global root
+#     root = tk.Tk()
+#     root.geometry("550x550+50+50") #size of the starting frame
+#     root.wm_title("Cube Solver")
+#     root.resizable(True, True) #Only allows the height to be resized, not the width
+#     GUIy()
+#     root.mainloop()
+#
+# #GUIy, after the GUI itself is created with GUI(), this will create all the buttons, labels, etc.. and add them into a frame. This is the behind the
+# #scenes work for the GUI itself.
+# def GUIy():
+#     global root, canvas, ScrambleLabel, SolutionLabel, SolutionNumberLabel, frame,isTransparent
+#     global PLLNumberLabel,F2LNumberLabel, CrossNumberLabel,OLLNumberLabel, SimulateBestLabel, SimulateWorstLabel
+#
+#     isTransparent = False
+#     canvas = drawCanvas(root)
+#     drawCube()
+#
+#     #locals
+#     move = StringVar(value="")
+#     scram = StringVar(value="Enter Scramble Here")
+#     simNum = IntVar()#Simulation Number
+#
+#     #Frame for controls
+#     frame = Frame(root)
+#     frame.grid(row=0,column=1, sticky="n")
+#
+#     #Frame for cube rotations
+#     Rframe = Frame(root)
+#     Rframe.grid(row=0, column=0, sticky = "n")
+#
+#     #row 1 - welcome label and new cube button
+#     Welcome = Label(frame, text = "Welcome to the Cube Solver").grid(row=1,column=0)
+#     NewCubeButton = Button(frame,text="New Cube", command = lambda: GUInewCube())
+#     NewCubeButton.grid(row=1, column=1)
+#     #row 2 - label to tell you to enter a move for execution
+#     EnterMove = Label(frame, text ="Enter move(s):").grid(row=2,column=0)
+#     #row 3 - Has entry for custom moves as well as button to execute them
+#     MoveEntry = Entry(frame, textvariable=move).grid(row = 3, column=0)
+#     DrawCubeButton=Button(frame,text="Execute", command = lambda: GUImakeMove(move)).grid(row = 3,column = 1, sticky="w")
+#     #row 4 - The label that will print out the current scramble after generation
+#     ScrambleLabel = Label(frame, text="Scramble will be displayed here",wraplength=180, justify=CENTER, height = 2)
+#     ScrambleLabel.grid(row=4,column=0, columnspan=2)
+#     #row 5 - The scramble button to generate new scramble and copy scramble to clipboard
+#     ScrambleButton = Button(frame, text="Scramble",bg="lightgreen", command = lambda: GUIScramble()).grid(row = 5, column = 0)
+#     CopyScrambleButton = Button(frame, text="Copy Scramble",bg="#EF9", command = lambda: GUItoClipboard(get_scramble())).grid(row = 5, column = 1)
+#     #row 6 - entry for custom scramble and button to apply custom scramble to cube
+#     CustomScramEntry = Entry(frame, textvariable=scram)
+#     CustomScramEntry.grid(row=6,column=0,sticky="w")
+#     CustomScramButton = Button(frame,text="Custom Scramble",bg="lightgreen", command = lambda: GUIcustomScramble(scram))
+#     CustomScramButton.grid(row=6,column=1)
+#     #row 7 - Slow solve (using timer to do it slowly), instant solve(quick and instant solution), copy solution to clipboard buttons
+#     #SolveTimerButton = Button(frame, text="Slow Solve", bg="#D53", command = lambda: GUIautomateSolve()).grid(row=7, column=0, sticky="w", pady=5)
+#     SolveButton = Button(frame, text="Solve Cube",bg="#D53",command = lambda: GUISolve()).grid(row = 7, column = 0) #sticky="e" if using timer button as well
+#     CopyScrambleButton = Button(frame, text="Copy Solution",bg="#EF9", command = lambda: GUItoClipboard(get_moves())).grid(row = 7, column = 1)
+#     #row 8 -Solve buttons to do steps independantly
+#     CrossButton = Button(frame, text="Cross",bg="lightblue", command = lambda: GUIsetSolve("cross"))
+#     CrossButton.grid(row=8, column=0)
+#     F2LButton = Button(frame, text="F2l",bg="lightblue", command = lambda: GUIsetSolve("F2L"))
+#     F2LButton.grid(row=8, column=0, sticky="e", padx= 15)
+#     OLLButton = Button(frame, text="OLL",bg="lightblue", command = lambda: GUIsetSolve("OLL"))
+#     OLLButton.grid(row=8, column=1, sticky = "w")
+#     PLLButton = Button(frame, text="PLL",bg="lightblue", command = lambda: GUIsetSolve("PLL"))
+#     PLLButton.grid(row=8, column=1, sticky = "e", padx=30)
+#     #row 9 - the label that contains the solution that will be generated
+#     SolutionLabel = Label(frame, text="Solution will be displayed here", wraplength = 250, justify=CENTER, height = 8)
+#     SolutionLabel.grid(row=9, column=0, columnspan=2)
+#     #row 10 - Labels for number of moves needed to solve
+#     SolutionNumberInfoLabel = Label(frame, text="Total number of moves used:")
+#     SolutionNumberInfoLabel.grid(row=10, column=0,sticky="e")
+#     SolutionNumberLabel = Label(frame, text="0")
+#     SolutionNumberLabel.grid(row=10, column=1,sticky="w")
+#     #row 11, 12, 13, 14 - Labels for number of moves for the different steps
+#     CrossInfoLabel = Label(frame, text="Moves needed for Cross:")
+#     CrossInfoLabel.grid(row=11,column=0,sticky="e")
+#     CrossNumberLabel = Label(frame,text="0")
+#     CrossNumberLabel.grid(row=11, column=1,sticky="w")
+#     F2LInfoLabel = Label(frame, text= "Moves needed for F2L:")
+#     F2LInfoLabel.grid(row = 12, column=0,sticky="e")
+#     F2LNumberLabel = Label(frame,text="0")
+#     F2LNumberLabel.grid(row=12, column=1,sticky="w")
+#     OLLInfoLabel = Label(frame,text="Moves needed for OLL:")
+#     OLLInfoLabel.grid(row=13, column=0,sticky="e")
+#     OLLNumberLabel = Label(frame,text="0")
+#     OLLNumberLabel.grid(row=13, column=1,sticky="w")
+#     PLLInfoLabel = Label(frame,text="Moves needed for PLL:")
+#     PLLInfoLabel.grid(row=14, column=0,sticky="e")
+#     PLLNumberLabel = Label(frame, text="0")
+#     PLLNumberLabel.grid(row=14, column=1,sticky="w")
+#     #row 15 - Exporting to alg.cubing.net
+#     ExportSolveButton = Button(frame, text="Export to alg.cubing.net", command = lambda: GUIexportSolve())
+#     ExportSolveButton.grid(row=15,column=0)
+#     #row 16 - Simulations for Best solve
+#     SimulateEntry = Entry(frame, textvariable = simNum)
+#     SimulateEntry.grid(row=16, column=0)
+#     SimulateButton = Button(frame, text="Start Simulations", command = lambda: GUISimulation(simNum))
+#     SimulateButton.grid(row=16,column=1)
+#     #row 17 - Which best was found
+#     SimulateBestInfo = Label(frame, text="Best Simulation: ")
+#     SimulateBestInfo.grid(row=17,column=0)
+#     SimulateBestLabel = Label(frame,text="")
+#     SimulateBestLabel.grid(row=17,column=1,sticky="w")
+#     #row 18 Which worst was found
+#     SimulateWorstInfo = Label(frame, text="Worst Simulation: ")
+#     SimulateWorstInfo.grid(row=18, column=0)
+#     SimulateWorstLabel = Label(frame,text="")
+#     SimulateWorstLabel.grid(row=18, column=1)
+#
+#     #In Rframe, buttons for rotation
+#     RotationLabel = Label(Rframe,text="Use the buttons below to rotate the cube").grid(row=0,column=0, columnspan=2)
+#     YrotationButton = Button(Rframe, text="<---- Y", command = lambda: GUIyRotation("Y"))
+#     YrotationButton.grid(row=1, column=0)
+#     YirotationButton = Button(Rframe, text="Y' ---->", command = lambda: GUIyRotation("Yi"))
+#     YirotationButton.grid(row=1, column=1)
+#
+# InfoGUI()
